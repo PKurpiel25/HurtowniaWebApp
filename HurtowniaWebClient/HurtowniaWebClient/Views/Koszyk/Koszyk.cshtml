@@ -1,0 +1,76 @@
+﻿@using HurtowniaWebClient.Models.Produkty;
+@model ProduktLista
+
+@{
+    ViewData["Title"] = "Koszyk";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        function warn() {
+            if (!confirm('Na pewno usunąć produkt?')) {
+                event.preventDefault();
+            }
+        }
+    </script>
+}
+
+@if (Model != null && Model.Produkty != null && Model.Produkty.Count > 0) 
+{
+    <div>
+        <h2>Produkty</h2>
+        <table class="table table-sm table-striped table-bordered m-2">
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Ilość</th>
+                    <th>Cena za jednostkę</th>
+                    <th>Usuń</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model.Produkty)
+                {
+                    <tr>
+                        <td>
+                            <form asp-controller="Produkty" asp-action="GetProdukt" method="post" target="_new">
+                                <input type="hidden" name="id" value="@r.Id" />
+                                <button class="przycisk" type="submit">@r.Nazwa</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-danger" asp-action="ZmniejszIlość" asp-route-id="@r.Id">-</a>
+                            @r.Ilość
+                            <form asp-action="ZwiększIlość" method="post">
+                                <input type="hidden" name="Id" value="@r.Id" />
+                                <input type="hidden" name="Nazwa" value="@r.Nazwa" />
+                                <input type="hidden" name="Cena" value="@r.Cena" />
+                                <input type="hidden" name="Ilość" value=1 />
+                                <input type="hidden" name="MaxIlość" value="@r.MaxIlość" />
+                                <button type="submit" class="btn btn-sm btn-outline-primary">+</button>
+                            </form>
+                            (Max: @r.MaxIlość)
+                        </td>
+                        <td>@r.Cena.ToString().Remove(r.Cena.ToString().Length-2,2).Insert(r.Cena.ToString().Length-2,"zł")</td>
+                        <td>
+                            <form asp-action="UsuńZKoszyka" asp-route-id="@r.Id">
+                                <input type="hidden" name="suma" value="@Model.Suma">
+                                <button class="btn btn-sm btn-danger" type="submit" onclick="warn()">Usuń</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <th colspan="2" style="text-align: right;">Suma:</th>
+                    <th colspan="2">@Model.Suma.ToString().Remove(Model.Suma.ToString().Length-2,2).Insert(Model.Suma.ToString().Length-2,"zł")</th>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <a asp-action="Koszyk_Wybór" class="btn btn-sm btn-primary">Przejdź dalej</a>
+    </div>
+}
+else
+{
+    <h2>Pusty koszyk!</h2>
+}

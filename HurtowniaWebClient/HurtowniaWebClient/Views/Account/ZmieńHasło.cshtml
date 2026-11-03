@@ -1,0 +1,39 @@
+﻿@using HurtowniaWebClient.Models.Konto;
+@model Hasło
+
+@{
+    ViewData["Title"] = "Zmień hasło";
+}
+
+<a class="btn btn-sm btn-secondary" asp-action="Konto">Wróć</a>
+<br>
+<br>
+<h1>Zmień hasło</h1>
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ZmieńHasło" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="StareHasło" class="control-label">Stare hasło:</label>
+                <input asp-for="StareHasło" class="form-control" />
+                <span asp-validation-for="StareHasło" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="NoweHasło" class="control-label">Nowe hasło:</label>
+                <input asp-for="NoweHasło" class="form-control" />
+                <span asp-validation-for="NoweHasło" class="text-danger"></span>
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="PotwNowe" class="control-label">Potwierdź nowe hasło:</label>
+                <input asp-for="PotwNowe" class="form-control" />
+                <span asp-validation-for="PotwNowe" class="text-danger"></span>
+            </div>
+            <br>
+            <input type="submit" value="Zapisz" class="btn btn-sm btn-primary" />
+        </form>
+    </div>
+</div>

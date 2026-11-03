@@ -1,0 +1,42 @@
+﻿@using HurtowniaWebClient.Models.Konto;
+@model IEnumerable<Użytkownik>
+
+@{
+    ViewData["Title"] = "Lista pracowników";
+}
+
+<h2>Pracownicy</h2>
+<a asp-action="AddKonto" class="btn btn-sm btn-primary">Dodaj nowego pracownika</a>
+@if (Model != null)
+{
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Email</th>
+                <th>Numer telefonu</th>
+                <th>Usuń</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Id</td>
+                    <td>@r.Imię</td>
+                    <td>@r.Nazwisko</td>
+                    <td>@r.Email</td>
+                    <td>@r.NumerTel</td>
+                    <td>
+                        <form asp-action="DeleteKonto" method="post">
+                            <input type="hidden" asp-for="@r.Id" name="KontoId" />
+                            <button type="submit" class="btn btn-sm btn-danger">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

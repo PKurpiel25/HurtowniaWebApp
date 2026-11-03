@@ -1,0 +1,24 @@
+﻿@using HurtowniaWebClient.Models.Zapytania;
+@model ZapytanieDetails
+@{
+    ViewBag.Title = "Szczegóły zapytania";
+}
+
+<a asp-action="Zapytania" class="btn btn-sm btn-primary">Wróć</a>
+<br>
+<br>
+<h3>@ViewBag.StatusCode</h3>
+@if (Model != null)
+{
+    <h2>Zapytanie</h2>
+    <br>
+    <b>ID: </b>@Model.Id
+    <br>
+    <b>Klient: </b>@Model.KlientEmail
+    <br>
+    <b>Produkt: </b>@Model.ProduktNazwa
+    <br>
+    <br>
+    <h3>@Model.Tytuł</h3>
+    @Model.Treść
+}

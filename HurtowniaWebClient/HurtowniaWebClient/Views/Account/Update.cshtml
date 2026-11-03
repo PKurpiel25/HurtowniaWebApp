@@ -1,0 +1,59 @@
+﻿@using HurtowniaWebClient.Models.Konto;
+@model Użytkownik
+@{
+    ViewData["Title"] = "Zmień dane";
+}
+
+<a asp-action="Konto" class="btn btn-sm btn-secondary">Wróć</a>
+<br>
+<br>
+<h2>Zmień dane</h2>
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Update" method="post">
+    <input type="hidden" asp-for="UserName" value="@Model.UserName" />
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <input type="hidden" asp-for="Rola" value="@Model.Rola" />
+    <div class="form-group">
+        <label asp-for="Email">Email:</label>
+        <input type="email" asp-for="Email" class="form-control" />
+    </div>
+    <br>
+    @if (Model.Rola == "Klient")
+    {
+        <div class="form-group">
+            <label asp-for="Firma">Firma:</label>
+            <input asp-for="Firma" class="form-control" />
+        </div>
+        <br>
+    }
+    <div class="form-group">
+        <label asp-for="Imię">Imię:</label>
+        <input asp-for="Imię" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="Nazwisko">Nazwisko:</label>
+        <input asp-for="Nazwisko" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="NumerTel">Numer telefonu:</label>
+        <input type="tel" asp-for="NumerTel" class="form-control" />
+    </div>
+    <br>
+    @if (Model.Rola == "Klient")
+    {
+        <div class="form-group">
+            <label asp-for="PESEL">PESEL:</label>
+            <input asp-for="PESEL" class="form-control" />
+        </div>
+        <br>
+    }
+    <div class="form-group">
+        <label asp-for="Hasło">Podaj hasło dla potwierdzenia:</label>
+        <input type="password" asp-for="Hasło" class="form-control" />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-sm btn-primary">Zapisz</button>
+</form>

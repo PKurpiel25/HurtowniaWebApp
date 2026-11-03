@@ -1,0 +1,27 @@
+﻿@model Home
+
+@{
+    ViewData["Title"] = "Strona główna";
+}
+
+@if (Model != null) 
+{
+    <div>
+        @foreach (var sekcja in Model.Zdjęcia)
+        {
+            <img src="~/images/@sekcja" alt="@sekcja" style="width: 25%;">
+        }
+    </div>
+    <hr>
+    <div>
+        <h1>O firmie</h1>
+        @foreach (var sekcja in Model.Paragraf)
+        {
+            <p>@sekcja</p>
+        }
+    </div>
+    <br>
+}
+<div class="border-top">
+    <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a>
+</div>

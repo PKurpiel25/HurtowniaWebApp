@@ -1,0 +1,48 @@
+﻿@model Privacy
+
+@{
+    ViewData["Title"] = "Polityka prywatności";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br>
+<div class="ciało">
+    <h2>Cele przetwarzania danych osobowych:</h2>
+    <ul>
+        <li>rejestracja klienta w systemie;</li>
+        <li>złożenie zamówienie;</li>
+        <li>wystawienie faktury;</li>
+        <li>wysłanie zapytania o produkt.</li>
+    </ul>
+    <br>
+    <h2>Podstawa prawna przetwarzania danych</h2>
+    <a href="https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX%3A32016R0679#d1e1822-1-1">
+        RODO Rozdział 2 Artykuł 5
+    </a>
+    <br>
+    <br>
+    <h2>Okres przechowywania danych</h2>
+    Dane osobowe są przechowywane do ich usunięcia.
+    <br>
+    Usuwane są po roku nieaktywności (365 dni od ostatnie logowania) lub na życzenie klienta.
+    <br>
+    <br>
+    <h2>Przysługujące prawa:</h2>
+    <ul>
+        <li>zażądanie od administratora dostępu do danych osobowych dotyczących osoby, której dane dotyczą;</li>
+        <li>sprostowanie danych osobowych;</li>
+        <li>usunięcie lub ograniczenie przetwarzania danych osobowych;</li>
+        <li>wniesienie sprzeciwu wobec przetwarzania;</li>
+        <li>przeniesienie danych;</li>
+        <li>wniesienie skargi do Prezesa Urzędu Ochrony Danych Osobowych.</li>
+    </ul>
+    <br>
+    <h2>Administrator danych osobowych</h2>
+    <b>Imię:</b> @Model.Imię
+    <br>
+    <b>Nazwisko:</b> @Model.Nazw
+    <br>
+    <b>Email:</b> @Model.Email
+    <br>
+    <b>Numer telefonu:</b> @Model.NrTel
+</div>

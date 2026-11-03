@@ -1,0 +1,77 @@
+﻿@using HurtowniaWebClient.Models.Produkty;
+@model ProduktDetails
+@{
+    ViewBag.Title = "Szczegóły produktu";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        function myFunction(imgs) {
+            // Get the expanded image
+            var expandImg = document.getElementById("expandedImg");
+            // Use the same src in the expanded image as the image being clicked on from the grid
+            expandImg.src = imgs.src;
+        }
+    </script>
+}
+
+<a asp-action="Produkty_Klient" class="btn btn-sm btn-primary">Wróć</a>
+<br>
+<br>
+<h3>@ViewBag.StatusCode</h3>
+
+@if (Model != null)
+{
+    @if (ViewBag.Redirect)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("Przekroczono maksymalną ilość produktów!")
+            }
+        </script>
+    }
+
+    <div class="ciało">
+        <h2>@Model.Nazwa</h2>
+        <br>
+        <aside>
+            <b>Dostepna ilość:</b> @Model.Ilość
+            <br>
+            <b class="pogr">Cena:</b> @Model.Cena.ToString().Remove(@Model.Cena.ToString().Length-2,2).Insert(@Model.Cena.ToString().Length-2,"zł")
+            <br>
+            <br>
+            <a asp-controller="Zapytania" asp-action="WyślijZapytanie" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary">Wyślij zapytanie</a>
+            <form asp-controller="Koszyk" asp-action="DodajDoKoszyka" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="hidden" name="Nazwa" value="@Model.Nazwa" />
+                <input type="hidden" name="Cena" value="@Model.Cena" />
+                <input type="hidden" name="Ilość" value=1 />
+                <input type="hidden" name="MaxIlość" value="@Model.Ilość" />
+                @if (Model.Ilość > 0)
+                {
+                    <button type="submit" class="btn btn-sm btn-primary">Dodaj do koszyka</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-sm btn-primary" disabled>Dodaj do koszyka</button>
+                }
+            </form>
+        </aside>
+        <div>
+            <img id="expandedImg" src="/images/@Model.Zdjęcia.First().Nazwa">
+            <div class="wiersz">
+                @foreach (var zdjęcie in Model.Zdjęcia)
+                {
+                    <div class="kolumna">
+                        <img src="/images/@zdjęcie.Nazwa" onclick="myFunction(this);">
+                    </div>
+                }
+            </div>
+        </div>
+        <br>
+        <div>
+            <h3>Opis:</h3>
+            <p>@Model.Opis</p>
+        </div>
+    </div>
+}

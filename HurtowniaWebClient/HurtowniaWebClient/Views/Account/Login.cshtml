@@ -1,0 +1,30 @@
+﻿@using HurtowniaWebClient.Models.Konto;
+@model Login
+@{
+    ViewData["Title"] = "Login";
+}
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-sm btn-secondary">Wróć</a>
+<br>
+<br>
+<h1>Logowanie</h1>
+<div class="text-danger" asp-validation-summary="All"></div>
+
+<form asp-action="Login" method="post">
+    <div class="form-group">
+        <label asp-for="UserName">Login</label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="Hasło"></label>
+        <input asp-for="Hasło" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="Pamiętaj">Nie wylogowuj mnie</label>
+        <input asp-for="Pamiętaj" />
+    </div>
+    <br>
+    <input class="btn btn-sm btn-primary" type="submit" value="Zaloguj" />
+</form>

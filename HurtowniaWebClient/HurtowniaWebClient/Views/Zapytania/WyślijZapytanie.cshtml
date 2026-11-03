@@ -1,0 +1,35 @@
+﻿@using HurtowniaWebClient.Models.Zapytania;
+@model ZapytanieFull
+
+@{
+    ViewData["Title"] = "Wyślij zapytanie";
+}
+
+<form asp-controller="Produkty" asp-action="GetProdukt" method="post">
+    <input type="hidden" name="id" value="@Model.ProduktId" />
+    <button type="submit" class="btn btn-sm btn-secondary">Wróć</button>
+</form>
+<br>
+<br>
+<h1>Zapytanie</h1>
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Zapytania" asp-action="WyślijZapytanie">
+            <input type="hidden" asp-for="ProduktId" />
+            <input type="hidden" asp-for="KlientId" />
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Tytuł" class="control-label">Tytuł:</label>
+                <input asp-for="Tytuł" class="form-control" />
+            </div>
+            <br>
+            <div class="form-group">
+                <label asp-for="Treść" class="control-label">Treść:</label>
+                <textarea asp-for="Treść" class="form-control" rows="10"></textarea>
+            </div>
+            <br>
+            <input type="submit" value="Wyślij" class="btn btn-sm btn-primary" />
+        </form>
+    </div>
+</div>

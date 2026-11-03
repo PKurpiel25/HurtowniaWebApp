@@ -1,0 +1,87 @@
+﻿@using HurtowniaWebClient.Models.Produkty
+@model ProduktUpdate
+@{
+    ViewBag.Title = "Modyfikuj produkt";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        function doUsun(nazwa) {
+            if(confirm("Na pewno usunąć zdjęcie?")) {
+                document.querySelector('#DoUsun').value += nazwa.name + "*";
+                nazwa.style.display = "none";
+            }
+        }
+        function warn() {
+            if (!confirm('Na pewno usunąć produkt?')) {
+                event.preventDefault();
+            }
+        }
+    </script>
+}
+
+<a asp-action="Produkty" class="btn btn-sm btn-secondary">Wróć</a>
+<br>
+<br>
+<div>
+    <h2>Modyfikuj produkt</h2>
+    <br>
+    <form asp-action="DeleteProdukt" method="post">
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <button type="submit" class="btn btn-sm btn-danger" onclick="warn()">Usuń produkt</button>
+    </form>
+    <br>
+    <br>
+    <form method="post" enctype="multipart/form-data" asp-action="UpdateProdukt">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="DoUsun" />
+        <input type="hidden" asp-for="Zdjęcia" />
+        <div class="form-group">
+            <label asp-for="Nazwa">Nazwa:</label>
+            <input class="form-control" asp-for="Nazwa" />
+        </div>
+        <br>
+        <div class="form-group">
+            <label asp-for="Opis">Opis:</label>
+            <textarea class="form-control" asp-for="Opis" rows="10"></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+            <label asp-for="Cena">Cena:</label>
+            <input class="form-control" asp-for="Cena" />
+        </div>
+        <br>
+        <div class="form-group">
+            <label asp-for="VAT">VAT:</label>
+            <input class="form-control" asp-for="VAT" />
+        </div>
+        <br>
+        <div class="form-group">
+            <label asp-for="Ilość">Ilość:</label>
+            <input class="form-control" asp-for="Ilość" />
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="zdjęcia">Zdjęcia (kliknij na jedno, aby je usunąć):</label>
+            <div name="zdjęcia">
+                @if (Model.Zdjęcia != null)
+                {
+                    @foreach (var zdjęcie in Model.Zdjęcia)
+                    {
+                        <label for="@zdjęcie.Nazwa"></label>
+                        <img src="~/images/@zdjęcie.Nazwa" name="@zdjęcie.Nazwa" onclick="doUsun(this)" style="width: 25%;" />
+                        <br>
+                    }
+                }
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label asp-for="Pliki">Wybierz zdjęcia (PNG, JPG):</label>
+            <br>
+            <input class="form-control" asp-for="Pliki" accept=".jpg, .jpeg, .png" multiple />
+        </div>
+        <br>
+        <button type="submit" class="btn btn-sm btn-primary">Zapisz</button>
+    </form>
+</div>

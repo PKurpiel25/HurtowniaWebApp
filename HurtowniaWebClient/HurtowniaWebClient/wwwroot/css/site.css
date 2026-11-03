@@ -1,0 +1,115 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 2px;
+}
+
+.ciało {
+    background-color: beige;
+    padding: 2px;
+}
+
+aside {
+    float: right;
+    width: 25%;
+    padding: 2px;
+}
+
+.kolumna {
+    float: left;
+    width: 10%;
+    padding: 2px;
+}
+
+.kolumna img {
+    opacity: 0.8;
+    width: 100%;
+    cursor: pointer;
+}
+
+.kolumna img:hover {
+    opacity: 1;
+}
+
+.wiersz:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.kontener {
+    position: relative;
+    display: none;
+    padding: 2px;
+}
+
+#expandedImg {
+    width: 50%;
+    padding: 2px;
+}
+
+.pogr {
+    font-weight: bold;
+}
+
+.przycisk {
+    border: none;
+    background-color: inherit;
+}
+
+.łącze {
+    color: inherit;
+    text-decoration: none;
+}
+
+form {
+    display: inline;
+}
+
+.banner {
+    background: #444;
+    color: #fff;
+    padding: 6px;
+    font-size: 13px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.banner button {
+    text-decoration: none;
+    background: #222;
+    color: #fff;
+    border: 1px solid #000;
+    cursor: pointer;
+    padding: 4px 7px;
+    margin: 2px 0;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.07s, color 0.07s, border-color 0.07s;
+}
+
+.banner button:hover {
+    background: #fff;
+    color: #222;
+}
+
+.hidden {
+    display: none;
+}

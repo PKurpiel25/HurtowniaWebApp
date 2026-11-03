@@ -1,0 +1,45 @@
+﻿@using HurtowniaWebClient.Models.Konto;
+@model Użytkownik
+@{
+    ViewBag.Title = "Dodaj nowego pracownika";
+}
+
+<a asp-action="Pracownicy" class="btn btn-sm btn-secondary">Wróć</a>
+<br>
+<br>
+<h2>Dodaj pracownika</h2>
+<form asp-action="AddKonto" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Rola" value="Pracownik" />
+    <div class="form-group">
+        <label asp-for="UserName">Login:</label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="Hasło">Hasło:</label>
+        <input asp-for="Hasło" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="NumerTel">Numer telefonu:</label>
+        <input asp-for="NumerTel" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="Imię">Imię:</label>
+        <input asp-for="Imię" class="form-control" />
+    </div>
+    <br>
+    <div class="form-group">
+        <label asp-for="Nazwisko">Nazwisko:</label>
+        <input asp-for="Nazwisko" class="form-control" />
+    </div>
+    <br>
+    <button type="submit" class="btn btn-sm btn-primary">Zapisz</button>
+</form>

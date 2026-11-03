@@ -1,0 +1,57 @@
+﻿@using HurtowniaWebClient.Models.Zamówienia;
+@model ZamówienieDetailsKlient
+@{
+    ViewBag.Title = "Szczegóły zamówienia";
+}
+
+<a asp-action="Zamówienia_Klient" class="btn btn-sm btn-primary">Wróć</a>
+<br>
+<br>
+<h3>@ViewBag.StatusCode</h3>
+@if (Model != null)
+{
+    <h2>Zamówienie</h2>
+    <br>
+    <div>
+        <b>Płatność: </b>@Model.RodzajPłatnościNazwa
+        <br>
+        <br>
+        <h3>Adres:</h3>
+        <b>Ulica: </b>@Model.AdresUlica
+        <br>
+        <b>Miasto: </b>@Model.AdresMiasto
+        <br>
+        <b>Kod pocztowy: </b>@Model.AdresKod
+    </div>
+    <br>
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Ilość</th>
+                <th>Cena</th>
+            </tr>
+        </thead>
+        <tbody>
+             @foreach (var produkt in Model.Produkty)
+             {
+                 <tr>
+                     <td>@produkt.Nazwa</td>
+                     <td>@produkt.Ilość</td>
+                     <td>@produkt.Cena.ToString().Remove(produkt.Cena.ToString().Length-2,2).Insert(produkt.Cena.ToString().Length-2,"zł")</td>
+                 </tr>
+             }
+            <tr>
+                <td>@Model.RodzajPrzesyłkiNazwa</td>
+                <td>1</td>
+                <td>@Model.KosztPrzesyłki.ToString().Insert(Model.KosztPrzesyłki.ToString().Length,"zł")</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: right;">Koszt całkowity:</th>
+                <th>@Model.Koszt.ToString().Insert(Model.Koszt.ToString().Length,"zł")</th>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a class="btn btn-sm btn-secondary" asp-action="GenerujPDF" asp-route-id="@Model.Id">Generuj fakturę (PDF)</a>
+}

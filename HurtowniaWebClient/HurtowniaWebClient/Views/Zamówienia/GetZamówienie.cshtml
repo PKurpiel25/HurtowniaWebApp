@@ -1,0 +1,60 @@
+﻿@using HurtowniaWebClient.Models.Zamówienia;
+@model ZamówienieDetails
+@{
+    ViewBag.Title = "Szczegóły zamówienia";
+}
+
+<a asp-action="Zamówienia" class="btn btn-sm btn-primary">Wróć</a>
+<br>
+<br>
+<h3>@ViewBag.StatusCode</h3>
+@if (Model != null)
+{
+    <h2>Zamówienie</h2>
+    <br>
+    <div>
+        <b>Klient: </b>@Model.KlientEmail
+        <br>
+        <b>Płatność: </b>@Model.RodzajPłatnościNazwa
+        <br>
+        <br>
+        <h3>Adres:</h3>
+        <b>Ulica: </b>@Model.AdresUlica
+        <br>
+        <b>Miasto: </b>@Model.AdresMiasto
+        <br>
+        <b>Kod pocztowy: </b>@Model.AdresKod
+    </div>
+    <br>
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+                <th>Ilość</th>
+                <th>Cena</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produkt in Model.Produkty)
+            {
+                <tr>
+                    <td>@produkt.Id</td>
+                    <td>@produkt.Nazwa</td>
+                    <td>@produkt.Ilość</td>
+                    <td>@produkt.Cena.ToString().Remove(@produkt.Cena.ToString().Length-2,2).Insert(@produkt.Cena.ToString().Length-2,"zł")</td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <td>@Model.RodzajPrzesyłkiNazwa</td>
+                <td>1</td>
+                <td>@Model.KosztPrzesyłki.ToString().Insert(Model.KosztPrzesyłki.ToString().Length,"zł")</td>
+            </tr>
+            <tr>
+                <th colspan="3" style="text-align: right;">Koszt całkowity:</th>
+                <th>@Model.Koszt.ToString().Insert(Model.Koszt.ToString().Length,"zł")</th>
+            </tr>
+        </tbody>
+    </table>
+}

@@ -1,0 +1,61 @@
+﻿@using HurtowniaWebClient.Models.Zamówienia;
+@model IEnumerable<ZamówienieSingle>
+
+@{
+    ViewData["Title"] = "Lista zamówień";
+}
+
+@if (Model != null)
+{
+    <div>
+        <h2>Zamówienia</h2>
+        <table class="table table-sm table-striped table-bordered m-2">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Klient</th>
+                    <th>Rodzaj przesyłki</th>
+                    <th>Rodzaj płatności</th>
+                    <th>Koszt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>
+                            <form asp-action="GetZamówienie" method="post">
+                                <input type="hidden" class="form-control" name="id" value="@r.Id" />
+                                <button class="przycisk" type="submit">@r.Id</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="GetZamówienie" method="post">
+                                <input type="hidden" class="form-control" name="id" value="@r.Id" />
+                                <button class="przycisk" type="submit">@r.KlientEmail</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="GetZamówienie" method="post">
+                                <input type="hidden" class="form-control" name="id" value="@r.Id" />
+                                <button class="przycisk" type="submit">@r.RodzajPrzesyłkiNazwa</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="GetZamówienie" method="post">
+                                <input type="hidden" class="form-control" name="id" value="@r.Id" />
+                                <button class="przycisk" type="submit">@r.RodzajPłatnościNazwa</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="GetZamówienie" method="post">
+                                <input type="hidden" class="form-control" name="id" value="@r.Id" />
+                                <button class="przycisk" type="submit">@r.Koszt.ToString().Insert(r.Koszt.ToString().Length,"zł")</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

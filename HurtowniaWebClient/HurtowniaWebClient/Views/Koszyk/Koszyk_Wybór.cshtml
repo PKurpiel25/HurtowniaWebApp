@@ -1,0 +1,57 @@
+﻿@using HurtowniaWebClient.Models.Zamówienia;
+@model ZamówienieDetailsExtra
+
+@{
+    ViewData["Title"] = "Koszyk";
+}
+
+@if (Model != null)
+{
+    <a asp-action="Koszyk" class="btn btn-sm btn-secondary">Wróć</a>
+    <br>
+    <br>
+    <div>
+        <form asp-action="Koszyk_Podsumowanie" method="post">
+            <input type="hidden" name="Id" />
+            <input type="hidden" name="Koszt" value="@Model.Koszt" />
+            <input type="hidden" name="KlientId" />
+            <input type="hidden" name="Produkty" value="@Model.Produkty" />
+            <div class="form-group">
+                <label for="RodzajPrzesyłkiNazwa">Rodzaj przesyłki:</label>
+                <select class="form-control" name="RodzajPrzesyłkiId">
+                    @foreach (var item in Model.RodzajePrzesyłki)
+                    {
+                        <option value="@item.Id">@item.Nazwa - @item.Koszt.ToString().Insert(item.Koszt.ToString().Length, "zł")</option>
+                    }
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="RodzajPłatnościNazwa">Rodzaj płatności:</label>
+                <select class="form-control" name="RodzajPłatnościId">
+                    @foreach (var item in Model.RodzajePłatności)
+                    {
+                        <option value="@item.Id">@item.Nazwa</option>
+                    }
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="AdresUlica">Ulica:</label>
+                <input class="form-control" name="AdresUlica" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="AdresMiasto">Miasto:</label>
+                <input class="form-control" name="AdresMiasto" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="AdresKod">Kod pocztowy:</label>
+                <input class="form-control" name="AdresKod" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-sm btn-primary">Przejdź do podsumowania</button>
+        </form>
+    </div>
+}

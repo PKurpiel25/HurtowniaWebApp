@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hurtownia</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HurtowniaWebClient.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Hurtownia</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (Context.Request.Cookies["rola"] == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Produkty" asp-action="Produkty_Klient">Lista produktów</a>
+                            </li>
+                        }
+                        else
+                        {
+                            switch (Context.Request.Cookies["rola"])
+                            {
+                                case "Klient":
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Produkty" asp-action="Produkty_Klient">Lista produktów</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Zamówienia" asp-action="Zamówienia_Klient">Lista zamówień</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Koszyk" asp-action="Koszyk">Koszyk</a>
+                                    </li>
+                                    break;
+                                case "Pracownik":
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Produkty" asp-action="Produkty">Lista produktów</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Zamówienia" asp-action="Zamówienia">Lista zamówień</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Zapytania" asp-action="Zapytania">Lista zapytań</a>
+                                    </li>
+                                    break;
+                                case "Admin":
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Pracownicy">Lista pracowników</a>
+                                    </li>
+                                    break;
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav">
+                        @if (Context.Request.Cookies["refreshToken"] == null) 
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Rejestracja">Rejestracja</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Zaloguj</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Konto">Konto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Wyloguj</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <div class="banner hidden">
+        Klikając "OK", wyrażasz zgodę na przechowywanie plików cookie na Twoim urządzeniu w celu umożliwienia poprawnego funkcjonowania strony.
+        <button>OK</button>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿@using HurtowniaWebClient.Models.Zamówienia;
+@model ZamówienieDetailsExtra
+
+@{
+    ViewData["Title"] = "Koszyk";
+}
+
+@if (Model != null)
+{
+    <a asp-action="Koszyk_Wybór" class="btn btn-sm btn-secondary">Wróć</a>
+    <br>
+    <br>
+    <h2>Podsumowanie</h2>
+    <br>
+    <div>
+        <b>Rodzaj płatności: </b>@Model.RodzajPłatnościNazwa
+        <br>
+        <br>
+        <h3>Adres</h3>
+        <b>Ulica: </b>@Model.AdresUlica
+        <br>
+        <b>Miasto: </b>@Model.AdresMiasto
+        <br>
+        <b>Kod pocztowy: </b>@Model.AdresKod
+    </div>
+    <br>
+    <table class="table table-sm table-striped table-bordered m-2">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Ilość</th>
+            <th>Cena</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model.Produkty)
+            {
+                <tr>
+                    <td>@r.Nazwa</td>
+                    <td>@r.Ilość</td>
+                    <td>@r.Cena.ToString().Remove(@r.Cena.ToString().Length-2,2).Insert(r.Cena.ToString().Length-2,"zł")</td>
+                </tr>
+            }
+            <tr>
+                <td>@Model.RodzajPrzesyłkiNazwa</td>
+                <td>1</td>
+                <td>@Model.KosztPrzesyłki.ToString().Insert(Model.KosztPrzesyłki.ToString().Length,"zł")</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: right;">Koszt całkowity:</th>
+                <th>@Model.Koszt.ToString().Remove(Model.Koszt.ToString().Length-2,2).Insert(Model.Koszt.ToString().Length-2,"zł")</th>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <form asp-controller="Zamówienia" asp-action="AddZamówienie" method="post">
+        <input type="hidden" name="Id" />
+        <input type="hidden" name="Koszt" value="@Model.Koszt" />
+        <input type="hidden" name="KlientId" />
+        <input type="hidden" name="Produkty" value="@Model.Produkty" />
+        <input type="hidden" name="RodzajPrzesyłkiId" value="@Model.RodzajPrzesyłkiId" />
+        <input type="hidden" name="RodzajPłatnościId" value="@Model.RodzajPłatnościId" />
+        <input type="hidden" name="AdresUlica" value="@Model.AdresUlica" />
+        <input type="hidden" name="AdresMiasto" value="@Model.AdresMiasto" />
+        <input type="hidden" name="AdresKod" value="@Model.AdresKod" />
+        <button type="submit" class="btn btn-sm btn-primary">Złóż zamówienie</button>
+    </form>
+   
+}
